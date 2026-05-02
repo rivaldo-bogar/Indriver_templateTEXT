@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InDriver Chat Templates</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg2: #111318;
+    --bg3: #181c24;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --accent: #00e5a0;
+    --accent2: #00b3ff;
+    --accent3: #ff6b35;
+    --text: #f0f2f8;
+    --text2: #8892a4;
+    --text3: #4a5568;
+    --pagi: #ffd166;
+    --siang: #f8961e;
+    --sore: #f3722c;
+    --malam: #7b5ea7;
+    --card-penumpang: rgba(0,229,160,0.06);
+    --card-kurir: rgba(0,179,255,0.06);
+    --card-makanan: rgba(255,107,53,0.06);
+    --card-custom: rgba(160,100,255,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG Grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow blobs */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.15;
+  }
+  .blob-1 { width: 500px; height: 500px; background: var(--accent); top: -150px; right: -100px; }
+  .blob-2 { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; left: -100px; }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 28px 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-icon svg { width: 26px; height: 26px; fill: #0a0c10; }
+
+  .logo-text h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .logo-text p {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 2px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .clock-box {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 8px 14px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .greeting-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border2);
+    background: var(--bg2);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .greeting-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.5; transform:scale(0.8); }
+  }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: var(--border2); }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num.green { color: var(--accent); }
+  .stat-num.blue { color: var(--accent2); }
+  .stat-num.orange { color: var(--accent3); }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── PLATE SETTING ── */
+  .plate-bar {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .plate-bar label {
+    font-size: 13px;
+    color: var(--text2);
+    white-space: nowrap;
+  }
+  .plate-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  .plate-input-wrap input {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: #ffd166;
+    padding: 8px 14px;
+    border-radius: 8px;
+    width: 160px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .plate-input-wrap input:focus { border-color: var(--accent); }
+  .plate-badge-live {
+    display: inline-flex;
+    align-items: center;
+    background: #1a1600;
+    border: 2px solid #ffd166;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd166;
+    letter-spacing: 0.08em;
+  }
+  .plate-tip { font-size: 12px; color: var(--text3); }
+
+  /* ── CONTROLS ── */
+  .controls-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text3); }
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3);
+    pointer-events: none;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .ftab {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    font-size: 13px;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+  .ftab:hover { border-color: var(--border2); color: var(--text); }
+  .ftab.active { background: var(--accent); color: #0a0c10; border-color: var(--accent); font-weight: 700; }
+  .ftab .count {
+    background: rgba(0,0,0,0.2);
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+  }
+  .ftab.active .count { background: rgba(0,0,0,0.25); }
+
+  /* ── SECTION HEADER ── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── TEMPLATE CARDS ── */
+  .template-grid {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .tcard {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    transition: all 0.2s;
+    animation: fadeUp 0.3s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(12px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+  .tcard::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 16px 0 0 16px;
+  }
+  .tcard.cat-penumpang { background: var(--card-penumpang); }
+  .tcard.cat-penumpang::before { background: var(--accent); }
+  .tcard.cat-kurir { background: var(--card-kurir); }
+  .tcard.cat-kurir::before { background: var(--accent2); }
+  .tcard.cat-makanan { background: var(--card-makanan); }
+  .tcard.cat-makanan::before { background: var(--accent3); }
+  .tcard.cat-custom::before { background: #a064ff; }
+  .tcard:hover { border-color: var(--border2); transform: translateY(-1px); }
+
+  .tcard-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .tcard-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .badge-penumpang { background: rgba(0,229,160,0.12); color: var(--accent); border: 1px solid rgba(0,229,160,0.2); }
+  .badge-kurir { background: rgba(0,179,255,0.12); color: var(--accent2); border: 1px solid rgba(0,179,255,0.2); }
+  .badge-makanan { background: rgba(255,107,53,0.12); color: var(--accent3); border: 1px solid rgba(255,107,53,0.2); }
+  .badge-custom { background: rgba(160,100,255,0.12); color: #c084fc; border: 1px solid rgba(160,100,255,0.2); }
+
+  .time-badge {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    background: var(--bg3);
+    color: var(--text2);
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+  }
+  .time-pagi { color: var(--pagi); border-color: rgba(255,209,102,0.2); background: rgba(255,209,102,0.07); }
+  .time-siang { color: var(--siang); border-color: rgba(248,150,30,0.2); background: rgba(248,150,30,0.07); }
+  .time-sore { color: var(--sore); border-color: rgba(243,114,44,0.2); background: rgba(243,114,44,0.07); }
+  .time-malam { color: var(--malam); border-color: rgba(123,94,167,0.2); background: rgba(123,94,167,0.07); }
+
+  .plate-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: #1a1600;
+    border: 1px solid rgba(255,209,102,0.4);
+    color: #ffd166;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .tcard-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    word-break: break-word;
+  }
+  .tcard-text .hl-plate {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    background: #1a1600;
+    border: 1px solid rgba(255,209,102,0.5);
+    color: #ffd166;
+    padding: 1px 7px;
+    border-radius: 5px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+  .tcard-text .hl-salam {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .tcard-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--accent);
+    background: rgba(0,229,160,0.08);
+    color: var(--accent);
+    font-size: 13px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-copy:hover { background: var(--accent); color: #0a0c10; }
+  .btn-copy.copied { background: var(--accent); color: #0a0c10; pointer-events: none; }
+  .btn-copy svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    font-size: 13px;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-edit:hover { border-color: var(--border2); color: var(--text); }
+  .btn-edit svg { width: 13px; height: 13px; }
+
+  .btn-del {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text3);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-del:hover { border-color: rgba(255,80,80,0.4); color: #ff5050; background: rgba(255,80,80,0.06); }
+  .btn-del svg { width: 13px; height: 13px; }
+
+  .copy-count {
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: auto;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ── EDIT MODAL ── */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    max-width: 560px;
+    animation: fadeUp 0.25s ease;
+  }
+  .modal h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .form-full { margin-bottom: 14px; }
+  .form-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-select option { background: var(--bg3); }
+  .form-textarea { resize: vertical; min-height: 100px; line-height: 1.55; }
+  .form-hint {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .form-hint span { color: var(--accent); font-family: 'Space Mono', monospace; font-size: 11px; }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .btn-cancel {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text2);
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+  }
+  .btn-save {
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: #0a0c10;
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-save:hover { opacity: 0.85; }
+
+  /* ── ADD BUTTON ── */
+  .add-btn-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 12px;
+    border: 1px dashed var(--border2);
+    background: transparent;
+    color: var(--text2);
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-add:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.05); border-style: solid; }
+  .btn-add svg { width: 16px; height: 16px; }
+
+  /* ── HISTORY ── */
+  .history-section {
+    margin-top: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .history-title {
+    font-size: 11px;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .history-list { display: flex; flex-direction: column; gap: 8px; }
+  .history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.4;
+  }
+  .history-item .h-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .history-item .h-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .history-item .h-copy {
+    cursor: pointer;
+    color: var(--text3);
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+  .history-item .h-copy:hover { color: var(--accent); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text2);
+    font-size: 15px;
+    display: none;
+  }
+  .empty-state svg { width: 48px; height: 48px; opacity: 0.3; margin-bottom: 12px; }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--accent);
+    color: #0a0c10;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+  #toast svg { width: 16px; height: 16px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    header { gap: 12px; }
+    .header-right { width: 100%; justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Tersalin!</span>
+</div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-area">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>
+      </div>
+      <div class="logo-text">
+        <h1>InDriver Chat Templates</h1>
+        <p>Panel template pesan cepat untuk driver profesional</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="clock-box" id="clock">00:00:00</div>
+      <div class="greeting-pill">
+        <div class="greeting-dot"></div>
+        <span id="greeting-label">Selamat pagi</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="s-total">0</div>
+      <div class="stat-lbl">Total Template</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num green" id="s-copied">0</div>
+      <div class="stat-lbl">Disalin Hari Ini</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num blue" id="s-period">Pagi</div>
+      <div class="stat-lbl">Periode Aktif</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num orange" id="s-history">0</div>
+      <div class="stat-lbl">Riwayat Salin</div>
+    </div>
+  </div>
+
+  <!-- PLATE BAR -->
+  <div class="plate-bar">
+    <label>Plat motor saya:</label>
+    <div class="plate-input-wrap">
+      <input type="text" id="plate-global" maxlength="12" placeholder="DB4388CV" oninput="onPlateChange(this)" />
+      <div class="plate-badge-live" id="plate-preview">DB4388CV</div>
+    </div>
+    <span class="plate-tip">Gunakan <code style="color:var(--accent);font-size:11px">{plat}</code> di template untuk sisipkan otomatis</span>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls-row">
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search" placeholder="Cari template..." oninput="renderAll()">
+    </div>
+    <div class="filter-tabs" id="filter-tabs">
+      <button class="ftab active" data-cat="all" onclick="setFilter('all',this)">Semua <span class="count" id="fc-all">0</span></button>
+      <button class="ftab" data-cat="penumpang" onclick="setFilter('penumpang',this)">🚗 Penumpang <span class="count" id="fc-penumpang">0</span></button>
+      <button class="ftab" data-cat="kurir" onclick="setFilter('kurir',this)">📦 Kurir <span class="count" id="fc-kurir">0</span></button>
+      <button class="ftab" data-cat="makanan" onclick="setFilter('makanan',this)">🍔 Makanan <span class="count" id="fc-makanan">0</span></button>
+      <button class="ftab" data-cat="custom" onclick="setFilter('custom',this)">⚙️ Custom <span class="count" id="fc-custom">0</span></button>
+    </div>
+  </div>
+
+  <!-- SECTION HEAD + ADD -->
+  <div class="section-head">
+    <span class="section-title">Template Pesan</span>
+  </div>
+
+  <div class="add-btn-row">
+    <button class="btn-add" onclick="openModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Tambah Template Baru
+    </button>
+  </div>
+
+  <!-- TEMPLATE GRID -->
+  <div class="template-grid" id="template-grid"></div>
+  <div class="empty-state" id="empty-state">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    <p>Tidak ada template ditemukan</p>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="history-section" id="history-section">
+    <div class="history-title">Riwayat Terakhir Disalin</div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+  <footer>InDriver Chat Templates &mdash; dibuat khusus untuk driver profesional &bull; v2.0</footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="modalBgClick(event)">
+  <div class="modal">
+    <h2 id="modal-title">Tambah Template Baru</h2>
+    <div class="form-row">
+      <div>
+        <label class="form-label">Kategori</label>
+        <select class="form-select" id="m-cat">
+          <option value="penumpang">Penumpang</option>
+          <option value="kurir">Kurir</option>
+          <option value="makanan">Makanan</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Waktu berlaku</label>
+        <select class="form-select" id="m-time">
+          <option value="all">Semua waktu</option>
+          <option value="pagi">Pagi (04.00–11.00)</option>
+          <option value="siang">Siang (11.00–15.00)</option>
+          <option value="sore">Sore (15.00–18.00)</option>
+          <option value="malam">Malam (18.00–04.00)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-full">
+      <label class="form-label">Plat motor khusus (opsional)</label>
+      <input type="text" class="form-input" id="m-plate" placeholder="Kosongkan = pakai plat global" style="text-transform:uppercase;letter-spacing:0.06em;font-family:'Space Mono',monospace">
+    </div>
+    <div class="form-full">
+      <label class="form-label">Isi Pesan</label>
+      <textarea class="form-textarea" id="m-text" placeholder="{salam} pak/ibu, ..."></textarea>
+      <div class="form-hint">
+        Variabel: <span>{salam}</span> = salam otomatis sesuai jam &nbsp;|&nbsp; <span>{plat}</span> = nomor plat motor
+      </div>
+    </div>
+    <div class="form-full">
+      <label class="form-label">Preview</label>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.6;min-height:48px" id="m-preview"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Batal</button>
+      <button class="btn-save" onclick="saveModal()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── STATE ───────────────────────────────
+const SK = 'indrvr_v3_templates';
+const CK = 'indrvr_v3_copied';
+const HK = 'indrvr_v3_history';
+const PK = 'indrvr_v3_plate';
+
+let templates = [];
+let filter = 'all';
+let copiedToday = 0;
+let history = [];
+let globalPlate = '';
+let editingId = null;
+let copyCounts = {};
+
+// ─── DEFAULT TEMPLATES ───────────────────
+const DEFAULTS = [
+  { id:1, cat:'penumpang', time:'all', plate:'', text:'{salam} pak/ibu, mau informasikan saya ganti motor ya dengan plat {plat}, menuju ke lokasi penjemputan. Terima kasih.' },
+  { id:2, cat:'penumpang', time:'all', plate:'', text:'{salam} pak/ibu, sudah tiba di lokasi penjemputan. Silahkan keluar ya, terima kasih.' },
+  { id:3, cat:'penumpang', time:'all', plate:'', text:'{salam} pak/ibu, maaf saya sedikit terlambat, sedang dalam perjalanan menuju lokasi penjemputan Anda. Terima kasih atas kesabarannya.' },
+  { id:4, cat:'penumpang', time:'all', plate:'', text:'{salam} pak/ibu, perjalanan sudah selesai. Terima kasih sudah menggunakan layanan saya, semoga harinya menyenangkan!' },
+  { id:5, cat:'kurir', time:'all', plate:'', text:'{salam} pak/ibu, menuju ke lokasi pengambilan atau pengantaran barangnya ya. Mohon berikan detail alamat jika diperlukan. Terima kasih.' },
+  { id:6, cat:'kurir', time:'all', plate:'', text:'{salam} pak/ibu, barang sudah diambil dan sedang dalam perjalanan menuju lokasi pengantaran Anda. Terima kasih.' },
+  { id:7, cat:'kurir', time:'all', plate:'', text:'{salam} pak/ibu, barang sudah tiba di lokasi tujuan. Mohon dikonfirmasi penerimaan ya. Terima kasih.' },
+  { id:8, cat:'makanan', time:'all', plate:'', text:'{salam} pak/ibu, pesanan makanan sedang diproses oleh restoran. Saya akan segera menuju ke sana untuk mengambil pesanan Anda.' },
+  { id:9, cat:'makanan', time:'all', plate:'', text:'{salam} pak/ibu, pesanan sudah diambil dan dalam perjalanan ke lokasi Anda. Estimasi tiba sekitar 10-15 menit, terima kasih.' },
+  { id:10, cat:'makanan', time:'all', plate:'', text:'{salam} pak/ibu, pesanan sudah tiba. Selamat menikmati makanannya, terima kasih sudah memesan!' },
+  { id:11, cat:'custom', time:'all', plate:'', text:'{salam} pak/ibu, mohon maaf ada sedikit kendala di jalan. Saya akan segera tiba. Terima kasih atas pengertiannya.' },
+  { id:12, cat:'custom', time:'all', plate:'', text:'{salam} pak/ibu, apakah ada perubahan pada lokasi penjemputan atau tujuan? Mohon konfirmasi ya, terima kasih.' },
+];
+
+// ─── LOAD / SAVE ─────────────────────────
+function load() {
+  try {
+    const t = localStorage.getItem(SK);
+    templates = t ? JSON.parse(t) : DEFAULTS.map(d=>({...d}));
+    const c = localStorage.getItem(CK);
+    if (c) { const o=JSON.parse(c); if(o.date===today()) copiedToday=o.count||0; }
+    const h = localStorage.getItem(HK);
+    history = h ? JSON.parse(h) : [];
+    globalPlate = localStorage.getItem(PK) || 'DB4388CV';
+    const cc = localStorage.getItem('indrvr_v3_cc');
+    copyCounts = cc ? JSON.parse(cc) : {};
+  } catch(e) {
+    templates = DEFAULTS.map(d=>({...d}));
+  }
+}
+function save() {
+  try {
+    localStorage.setItem(SK, JSON.stringify(templates));
+    localStorage.setItem(CK, JSON.stringify({date:today(),count:copiedToday}));
+    localStorage.setItem(HK, JSON.stringify(history));
+    localStorage.setItem(PK, globalPlate);
+    localStorage.setItem('indrvr_v3_cc', JSON.stringify(copyCounts));
+  } catch(e){}
+}
+function today() { return new Date().toISOString().slice(0,10); }
+
+// ─── GREETING ────────────────────────────
+function getGreeting() {
+  const h = new Date().getHours();
+  if(h>=4&&h<11) return {label:'Selamat pagi',period:'pagi'};
+  if(h>=11&&h<15) return {label:'Selamat siang',period:'siang'};
+  if(h>=15&&h<18) return {label:'Selamat sore',period:'sore'};
+  return {label:'Selamat malam',period:'malam'};
+}
+
+function resolveText(t, forDisplay) {
+  const g = getGreeting();
+  const plate = t.plate || globalPlate || '[plat]';
+  let txt = t.text.replace(/\{salam\}/g, forDisplay
+    ? `<span class="hl-salam">${g.label}</span>`
+    : g.label);
+  txt = txt.replace(/\{plat\}/g, forDisplay
+    ? `<span class="hl-plate">${plate}</span>`
+    : plate);
+  return txt;
+}
+
+function resolvePlain(t) {
+  const g = getGreeting();
+  const plate = t.plate || globalPlate || '[plat]';
+  return t.text
+    .replace(/\{salam\}/g, g.label)
+    .replace(/\{plat\}/g, plate);
+}
+
+// ─── CLOCK ───────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const g = getGreeting();
+  document.getElementById('greeting-label').textContent = g.label;
+  document.getElementById('s-period').textContent = g.period.charAt(0).toUpperCase()+g.period.slice(1);
+}
+
+// ─── PLATE ───────────────────────────────
+function onPlateChange(el) {
+  const v = el.value.toUpperCase();
+  el.value = v;
+  globalPlate = v || 'DB4388CV';
+  document.getElementById('plate-preview').textContent = globalPlate;
+  save();
+  renderAll();
+}
+
+// ─── FILTER ──────────────────────────────
+function setFilter(cat, btn) {
+  filter = cat;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+
+function isVisible(t) {
+  if(filter !== 'all' && t.cat !== filter) return false;
+  const g = getGreeting();
+  if(t.time !== 'all' && t.time !== g.period) return false;
+  const q = (document.getElementById('search').value||'').toLowerCase();
+  if(q && !t.text.toLowerCase().includes(q) && !t.cat.includes(q)) return false;
+  return true;
+}
+
+// ─── RENDER ──────────────────────────────
+const CAT_LABEL = {penumpang:'Penumpang',kurir:'Kurir',makanan:'Makanan',custom:'Custom'};
+const TIME_LABEL = {all:'Semua waktu',pagi:'Pagi',siang:'Siang',sore:'Sore',malam:'Malam'};
+const TIME_CLASS = {all:'',pagi:'time-pagi',siang:'time-siang',sore:'time-sore',malam:'time-malam'};
+
+function renderAll() {
+  const grid = document.getElementById('template-grid');
+  const empty = document.getElementById('empty-state');
+  grid.innerHTML = '';
+  let shown = 0;
+  const counts = {all:0,penumpang:0,kurir:0,makanan:0,custom:0};
+
+  templates.forEach(t => {
+    const g = getGreeting();
+    const showInTime = t.time === 'all' || t.time === g.period;
+    if(showInTime) { counts.all++; counts[t.cat]=(counts[t.cat]||0)+1; }
+    if(!isVisible(t)) return;
+    shown++;
+    const cc = copyCounts[t.id] || 0;
+    const div = document.createElement('div');
+    div.className = `tcard cat-${t.cat}`;
+    div.style.animationDelay = (shown*0.04)+'s';
+    div.innerHTML = `
+      <div class="tcard-top">
+        <div class="tcard-meta">
+          <span class="badge badge-${t.cat}">${CAT_LABEL[t.cat]||t.cat}</span>
+          <span class="time-badge ${TIME_CLASS[t.time]||''}">${TIME_LABEL[t.time]||t.time}</span>
+          ${t.plate?`<span class="plate-chip">${t.plate}</span>`:''}
+        </div>
+      </div>
+      <div class="tcard-text">${resolveText(t,true)}</div>
+      <div class="tcard-actions">
+        <button class="btn-copy" id="copybtn-${t.id}" onclick="copyTpl(${t.id},this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Salin
+        </button>
+        <button class="btn-edit" onclick="openModal(${t.id})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit
+        </button>
+        <button class="btn-del" title="Hapus" onclick="deleteTpl(${t.id})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+        </button>
+        ${cc>0?`<span class="copy-count">Disalin ${cc}x</span>`:''}
+      </div>`;
+    grid.appendChild(div);
+  });
+
+  empty.style.display = shown===0?'block':'none';
+  Object.keys(counts).forEach(k=>{
+    const el=document.getElementById('fc-'+k);
+    if(el) el.textContent=counts[k];
+  });
+  document.getElementById('s-total').textContent = templates.length;
+  document.getElementById('s-copied').textContent = copiedToday;
+  document.getElementById('s-history').textContent = history.length;
+  renderHistory();
+}
+
+// ─── COPY ────────────────────────────────
+function copyTpl(id, btn) {
+  const t = templates.find(x=>x.id===id);
+  if(!t) return;
+  const plain = resolvePlain(t);
+  navigator.clipboard.writeText(plain).catch(()=>{
+    const el=document.createElement('textarea');el.value=plain;
+    document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);
+  });
+  btn.classList.add('copied');
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!`;
+  setTimeout(()=>{
+    btn.classList.remove('copied');
+    btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Salin`;
+  },2000);
+
+  copiedToday++;
+  copyCounts[id] = (copyCounts[id]||0)+1;
+
+  history.unshift({text:plain, time:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
+  if(history.length>10) history=history.slice(0,10);
+
+  save();
+  showToast('Pesan tersalin ke clipboard!');
+  renderAll();
+}
+
+// ─── DELETE ──────────────────────────────
+function deleteTpl(id) {
+  if(!confirm('Hapus template ini?')) return;
+  templates = templates.filter(x=>x.id!==id);
+  save(); renderAll();
+}
+
+// ─── MODAL ───────────────────────────────
+function openModal(id) {
+  editingId = id || null;
+  document.getElementById('modal-title').textContent = id ? 'Edit Template' : 'Tambah Template Baru';
+  const t = id ? templates.find(x=>x.id===id) : null;
+  document.getElementById('m-cat').value = t?.cat || 'penumpang';
+  document.getElementById('m-time').value = t?.time || 'all';
+  document.getElementById('m-plate').value = t?.plate || '';
+  document.getElementById('m-text').value = t?.text || '{salam} pak/ibu, ';
+  updatePreview();
+  document.getElementById('modal-bg').classList.add('open');
+  document.getElementById('m-text').addEventListener('input', updatePreview);
+  document.getElementById('m-plate').addEventListener('input', updatePreview);
+}
+
+function updatePreview() {
+  const txt = document.getElementById('m-text').value;
+  const plate = document.getElementById('m-plate').value.toUpperCase() || globalPlate || '[plat]';
+  const g = getGreeting();
+  let p = txt
+    .replace(/\{salam\}/g, `<strong style="color:var(--accent)">${g.label}</strong>`)
+    .replace(/\{plat\}/g, `<span style="font-family:'Space Mono',monospace;color:#ffd166;font-weight:700">${plate}</span>`);
+  document.getElementById('m-preview').innerHTML = p || '<span style="color:var(--text3)">—</span>';
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+  editingId = null;
+}
+
+function modalBgClick(e) {
+  if(e.target === document.getElementById('modal-bg')) closeModal();
+}
+
+function saveModal() {
+  const text = document.getElementById('m-text').value.trim();
+  if(!text) { alert('Isi pesan tidak boleh kosong'); return; }
+  const cat = document.getElementById('m-cat').value;
+  const time = document.getElementById('m-time').value;
+  const plate = document.getElementById('m-plate').value.trim().toUpperCase();
+  if(editingId) {
+    const idx = templates.findIndex(x=>x.id===editingId);
+    if(idx>-1) templates[idx] = {...templates[idx], cat,time,plate,text};
+  } else {
+    templates.push({id:Date.now(),cat,time,plate,text});
+  }
+  save(); closeModal(); renderAll();
+  showToast(editingId?'Template diperbarui!':'Template baru ditambahkan!');
+}
+
+// ─── HISTORY ─────────────────────────────
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  const sec = document.getElementById('history-section');
+  if(history.length===0){sec.style.display='none';return;}
+  sec.style.display='block';
+  list.innerHTML = history.map((h,i)=>`
+    <div class="history-item">
+      <span class="h-time">${h.time}</span>
+      <span class="h-text">${h.text}</span>
+      <span class="h-copy" onclick="recopy('${i}')" title="Salin lagi">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </span>
+    </div>`).join('');
+}
+
+function recopy(i) {
+  const txt = history[i]?.text;
+  if(!txt) return;
+  navigator.clipboard.writeText(txt).catch(()=>{
+    const el=document.createElement('textarea');el.value=txt;
+    document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);
+  });
+  showToast('Disalin ulang!');
+}
+
+// ─── TOAST ───────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+// ─── INIT ─────────────────────────────────
+load();
+document.getElementById('plate-global').value = globalPlate;
+document.getElementById('plate-preview').textContent = globalPlate;
+updateClock();
+setInterval(updateClock, 1000);
+setInterval(renderAll, 60000);
+renderAll();
+</script>
+</body>
+</html>
